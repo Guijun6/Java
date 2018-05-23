@@ -1,0 +1,22 @@
+//输入一个数，判断是否是回文
+public class Test {
+	public static void main(String[] args) {
+		System.out.println(isPalindrome(12321));
+		System.out.println(isPalindrome(12345321));
+	}
+	public static boolean isPalindrome(Integer x) {
+		String string = new String(x.toString());
+		char[] cs = string.toCharArray();
+		int begin = 0;
+		int end = cs.length-1;
+		while(begin < end) {
+			if(cs[begin] == cs[end]) {
+				begin++;
+				end--;
+			}else {
+				return false;
+			}
+		}
+		return true;
+	}
+}
