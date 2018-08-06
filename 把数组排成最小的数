@@ -1,0 +1,46 @@
+题目描述
+输入一个正整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。
+例如输入数组{3，32，321}，则打印出这三个数字能排成的最小数字为321323。
+
+
+import java.util.ArrayList;
+import java.util.Iterator;
+
+public class Solution {
+    public String PrintMinNumber(int [] numbers) {
+         ArrayList<String> arrayList = new ArrayList<>();
+        permutation(arrayList, numbers, 0);
+
+        Iterator<String> it = arrayList.iterator();
+        String s = null;
+        if(it.hasNext())
+            s = it.next();
+        while (it.hasNext()) {
+            String tmp = it.next();
+            if(s.compareTo(tmp) > 0)
+                s = tmp;
+        }
+        return s;
+    }
+
+    //求一个数组中有多少种排列组合，存入ArrayList中，不用去重
+    public void permutation(ArrayList<String> l, int[] a, int pos) {
+        if (pos >= a.length) {
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < a.length; i++) {
+                sb.append(String.valueOf(a[i]));
+            }
+            l.add(sb.toString());
+        }else{
+            for (int i = pos; i < a.length; i++) {
+                int tmp = a[pos];
+                a[pos] = a[i];
+                a[i] = tmp;
+                permutation(l, a, pos+1);
+                tmp = a[pos];
+                a[pos] = a[i];
+                a[i] = tmp;
+            }
+        }
+    }
+}
