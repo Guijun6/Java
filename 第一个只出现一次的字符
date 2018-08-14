@@ -1,0 +1,41 @@
+
+题目描述
+在一个字符串(0<=字符串长度<=10000，全部由字母组成)中找到第一个只出现一次的字符,并返回它的位置, 如果没有则返回 -1（需要区分大小写）.
+
+
+import java.util.*;
+
+public class Solution {
+    public int FirstNotRepeatingChar(String str) {
+        if (str == null || str.length() == 0) {
+            return -1;
+        }
+        char[] c = str.toCharArray();
+        Map<Character, Integer> stringIntegerMap = new LinkedHashMap<>();
+        for (int i = 0; i < c.length; i++) {
+            if (stringIntegerMap.containsKey(c[i])) {
+                int count = stringIntegerMap.get(c[i]);
+                stringIntegerMap.put(c[i], ++count);
+            }else{
+                stringIntegerMap.put(c[i], 1);
+            }
+        }
+        Set<Map.Entry<Character, Integer>> set = stringIntegerMap.entrySet();
+        Iterator<Map.Entry<Character, Integer>> it = set.iterator();
+        char pos = 0;
+        while (it.hasNext()) {
+
+            Map.Entry<Character, Integer> entry = it.next();
+            if (entry.getValue() == 1) {
+                 pos = entry.getKey();
+                break;
+            }
+        }
+        for (int i = 0; i < c.length; i++) {
+            if (c[i] == pos) {
+                return i;
+            }
+        }
+        return -1;
+    }
+}
