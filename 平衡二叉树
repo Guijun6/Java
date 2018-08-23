@@ -1,0 +1,22 @@
+题目描述
+输入一棵二叉树，判断该二叉树是否是平衡二叉树。
+
+
+public class Solution {
+    private int longDepth(TreeNode root){
+        if(root == null){
+            return 0;
+        }
+        int leftSize = longDepth(root.left);
+        int rightSize = longDepth(root.right);
+        
+        return leftSize > rightSize ? (leftSize + 1) : (rightSize + 1);
+    }
+    public boolean IsBalanced_Solution(TreeNode root) {
+        if(root == null)
+            return true;
+        return (Math.abs(longDepth(root.left) - longDepth(root.right)) <= 1)
+            && IsBalanced_Solution(root.left)
+            && IsBalanced_Solution(root.right);
+    }
+}
